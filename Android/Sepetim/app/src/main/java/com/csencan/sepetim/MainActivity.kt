@@ -1,4 +1,4 @@
-package com.example.sepetim
+package com.csencan.sepetim
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

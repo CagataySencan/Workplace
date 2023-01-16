@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.sepetim'
+    namespace 'com.csencan.sepetim'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.sepetim"
+        applicationId "com.csencan.sepetim"
         minSdk 24
         targetSdk 33
         versionCode 1
