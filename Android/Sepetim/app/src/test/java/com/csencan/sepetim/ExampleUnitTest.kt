@@ -1,4 +1,4 @@
-package com.example.sepetim
+package com.csencan.sepetim
 
 import org.junit.Test
 
