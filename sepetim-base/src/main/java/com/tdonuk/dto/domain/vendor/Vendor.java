@@ -1,7 +1,7 @@
-package com.tdonuk.dto.vendor;
+package com.tdonuk.dto.domain.vendor;
 
 import com.tdonuk.constant.VendorType;
-import com.tdonuk.dto.BaseDTO;
+import com.tdonuk.dto.domain.BaseDTO;
 import lombok.Data;
 import lombok.NonNull;
 

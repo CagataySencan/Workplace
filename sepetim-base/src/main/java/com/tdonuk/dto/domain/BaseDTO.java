@@ -1,4 +1,4 @@
-package com.tdonuk.dto;
+package com.tdonuk.dto.domain;
 
 import lombok.Data;
 

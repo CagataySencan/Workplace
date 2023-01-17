@@ -1,4 +1,4 @@
-package com.tdonuk.dto.user;
+package com.tdonuk.dto.domain.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

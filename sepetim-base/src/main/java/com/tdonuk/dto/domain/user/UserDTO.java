@@ -1,7 +1,7 @@
-package com.tdonuk.dto.user;
+package com.tdonuk.dto.domain.user;
 
-import com.tdonuk.dto.BaseDTO;
-import com.tdonuk.dto.vendor.Vendor;
+import com.tdonuk.dto.domain.BaseDTO;
+import com.tdonuk.dto.domain.vendor.Vendor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
