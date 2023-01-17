@@ -1,4 +1,4 @@
-package com.tdonuk.dto.domain;
+package com.tdonuk.dto.domain.product;
 
 import com.tdonuk.dto.domain.vendor.VendorDTO;
 import lombok.Data;
