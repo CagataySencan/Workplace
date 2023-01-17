@@ -1,7 +1,7 @@
 package com.tdonuk.dto.domain.user;
 
 import com.tdonuk.dto.domain.BaseDTO;
-import com.tdonuk.dto.domain.vendor.Vendor;
+import com.tdonuk.dto.domain.vendor.VendorDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -19,5 +19,5 @@ public class UserDTO extends BaseDTO {
     private Name name;
     private Integer age;
     private List<String> interests;
-    private List<Vendor> vendors;
+    private List<VendorDTO> vendors;
 }
