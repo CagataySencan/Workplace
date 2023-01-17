@@ -15,8 +15,8 @@ public class VendorDTO extends BaseDTO {
     private String name;
     @NonNull
     private String url;
-    private ChronoUnit cycle;
-    private Integer cyclePeriod;
+    private ChronoUnit actualCycle;
+    private Integer actualCyclePeriod;
     private VendorType type;
     private List<ProductDTO> actual;
 }
