@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Data
 public class BaseDTO {
-    private String id;
-    private Date created;
-    private Date lastUpdated;
+    protected String id;
+    protected Date created;
+    protected Date lastUpdated;
 }
