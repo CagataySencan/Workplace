@@ -1,11 +1,11 @@
 package com.tdonuk.dto.domain.product;
 
-import com.tdonuk.dto.domain.BaseDTO;
+import com.tdonuk.dto.domain.DomainDTO;
 import com.tdonuk.dto.domain.vendor.VendorDTO;
 import lombok.Data;
 
 @Data
-public class ProductDTO extends BaseDTO {
+public class ProductDTO extends DomainDTO {
     private String title;
     private String description;
     private String url;

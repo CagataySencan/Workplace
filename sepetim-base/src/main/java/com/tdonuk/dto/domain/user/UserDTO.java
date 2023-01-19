@@ -1,6 +1,6 @@
 package com.tdonuk.dto.domain.user;
 
-import com.tdonuk.dto.domain.BaseDTO;
+import com.tdonuk.dto.domain.DomainDTO;
 import com.tdonuk.dto.domain.vendor.VendorDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class UserDTO extends BaseDTO {
+public class UserDTO extends DomainDTO {
     @NonNull
     private String email;
     @NonNull

@@ -1,4 +1,4 @@
-package com.tdonuk.dto.domain.product;
+package com.tdonuk.dto.domain;
 
 import com.tdonuk.dto.domain.vendor.VendorDTO;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class CurrentActualDTO {
+public class CurrentActualDTO extends DomainDTO {
     private Integer vendorCount;
     private Integer productCount;
     private List<VendorDTO> vendors;
