@@ -13,7 +13,7 @@ public class ProductDTO extends BaseDTO {
     private String imageUrl;
     private VendorDTO vendor;
     private Double oldPrice;
-    private Double newPrice;
+    private Double price;
     private Integer leftDaysInDiscount;
     private Boolean inDiscount;
     private Boolean inActual;
