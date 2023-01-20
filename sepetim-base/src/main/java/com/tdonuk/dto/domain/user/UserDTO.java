@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -20,4 +21,5 @@ public class UserDTO extends DomainDTO {
     private Integer age;
     private List<String> interests;
     private List<VendorDTO> vendors;
+    private Date lastLogin;
 }
