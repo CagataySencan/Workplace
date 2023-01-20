@@ -1,4 +1,4 @@
 package com.csencan.sepetim.viewmodels
 
-class ProductActivityVM {
+class SignUpActivityVM {
 }
