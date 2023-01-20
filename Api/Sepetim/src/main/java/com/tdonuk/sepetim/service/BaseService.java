@@ -39,6 +39,10 @@ public abstract class BaseService <T extends BaseDTO> {
         return dao().delete(id);
     }
 
+    public List<T> findByField(String field, Object value) throws Exception{
+        return concrete(dao().findAll(field, value));
+    }
+
     public Boolean deleteAll(List<String> id) {
         return Boolean.FALSE;
     }

@@ -15,4 +15,5 @@ public class UserDAO extends BaseDAO<UserDTO> {
     protected Class<UserDTO> type() {
         return UserDTO.class;
     }
+
 }

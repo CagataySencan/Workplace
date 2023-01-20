@@ -12,7 +12,7 @@ public abstract class BaseController<T extends DomainDTO> {
 
     abstract BaseService service();
 
-    @PostMapping(path = {"/", "/save", "/create"})
+    @PostMapping(path = {"/", "/save", "/create", "/signup", "/register"})
     public BaseResponse<?> save(@RequestBody T body) throws Exception {
         return BaseResponse.of(service().save(body), HttpStatus.OK.value());
     }
