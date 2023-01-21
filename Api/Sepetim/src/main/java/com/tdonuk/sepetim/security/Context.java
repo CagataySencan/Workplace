@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
-import static com.tdonuk.sepetim.constant.ContextParams.*;
+import static com.tdonuk.sepetim.constant.ContextParams.LOGGED_USER;
+import static com.tdonuk.sepetim.constant.ContextParams.LOGGED_USERNAME;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Context {
