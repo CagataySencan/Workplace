@@ -1,7 +1,9 @@
 package com.tdonuk.sepetim.service;
 
 import com.tdonuk.dto.domain.user.UserDTO;
+import com.tdonuk.sepetim.constant.ContextParams;
 import com.tdonuk.sepetim.dao.UserDAO;
+import com.tdonuk.sepetim.security.Context;
 import com.tdonuk.sepetim.security.domain.UserDetail;
 import com.tdonuk.sepetim.util.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
-import static com.tdonuk.constant.HttpHeaders.ACCESS_TOKEN;
 import static com.tdonuk.sepetim.service.constants.UserFields.EMAIL;
 import static com.tdonuk.sepetim.service.constants.UserFields.PASSWORD;
 
@@ -44,6 +44,9 @@ public class AuthenticationService {
         Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
 
         UserDetail user = (UserDetail) auth.getPrincipal();
+
+        Context.set(ContextParams.LOGGED_USERNAME, user.getUsername());
+        Context.set(ContextParams.LOGGED_USER, user.getUser());
 
         String jwt = JWTUtils.createDefault(user.getUsername(), Collections.singletonList("USER"));
 

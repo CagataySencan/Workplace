@@ -2,6 +2,7 @@ package com.tdonuk.sepetim.controller;
 
 import com.tdonuk.dto.http.BaseResponse;
 import com.tdonuk.sepetim.service.ActualService;
+import com.tdonuk.sepetim.util.ErrorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class ActualController {
         try {
             return BaseResponse.of(service.getCurrent(), HttpStatus.OK.value());
         } catch (Exception e) {
-            return BaseResponse.of(e.getMessage(), HttpStatus.BAD_REQUEST.value());
+            return ErrorUtils.badRequest(e);
         }
     }
 
@@ -28,7 +29,7 @@ public class ActualController {
         try {
             return BaseResponse.of(service.getHist(), HttpStatus.OK.value());
         } catch (Exception e) {
-            return BaseResponse.of(e.getMessage(), HttpStatus.BAD_REQUEST.value());
+            return ErrorUtils.badRequest(e);
         }
     }
 }

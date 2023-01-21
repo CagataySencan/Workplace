@@ -2,9 +2,12 @@ package com.tdonuk.sepetim.dao;
 
 import com.google.cloud.firestore.CollectionReference;
 import com.tdonuk.dto.domain.user.UserDTO;
+import com.tdonuk.exception.BadRequestException;
 import com.tdonuk.exception.ConflictException;
 import com.tdonuk.exception.NotFoundException;
 import com.tdonuk.sepetim.constant.FirebaseCollections;
+import com.tdonuk.sepetim.security.Context;
+import com.tdonuk.util.text.StringUtils;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
@@ -51,5 +54,13 @@ public class UserDAO extends BaseDAO<UserDTO> {
         if(users.size() > 1) throw new RuntimeException("Verilen bilgiler birden fazla kullanıcı ile eşleşmektedir");
 
         return users.get(0);
+    }
+
+    public UserDTO getAuthenticatedUser() throws Exception {
+        String loggedUser = Context.loggedEmail();
+
+        if(StringUtils.isBlank(loggedUser)) throw new BadRequestException("İşleminiz sırasında bir sorun oluştu", "Bilinmeyen bir sorun oluştu, lütfen tekrar giriş yaparak oturumunuzu yenileyiniz");
+
+        return findByEmail(loggedUser);
     }
 }
