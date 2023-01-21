@@ -6,17 +6,23 @@ import com.tdonuk.exception.ValidationException;
 
 public class UserValidator implements Validator {
     private UserDTO user;
+
+    private boolean isValid = false;
     public UserValidator(UserDTO user) {
         this.user = user;
     }
 
-    public boolean validate() throws ValidationException {
-        validateEmail(user.getEmail());
-        validatePassword(user.getPassword());
-        validatePhone(user.getPhone());
-        validateName(user.getName());
+    public UserValidator validate() {
+        try {
+            validateEmail(user.getEmail());
+            validatePassword(user.getPassword());
+            validatePhone(user.getPhone());
+            validateName(user.getName());
+        } catch(ValidationException e) {
+            this.isValid = false;
+        }
 
-        return true;
+        return this;
     }
 
     private void validateEmail(final String email) throws ValidationException {

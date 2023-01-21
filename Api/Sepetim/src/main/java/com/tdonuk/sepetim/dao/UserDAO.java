@@ -5,9 +5,11 @@ import com.tdonuk.dto.domain.user.UserDTO;
 import com.tdonuk.exception.ConflictException;
 import com.tdonuk.exception.NotFoundException;
 import com.tdonuk.sepetim.constant.FirebaseCollections;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static com.tdonuk.sepetim.service.constants.UserFields.EMAIL;
 
@@ -33,13 +35,20 @@ public class UserDAO extends BaseDAO<UserDTO> {
         dataToUpdate.setPhone(oldData.getPhone());
     }
 
-    public UserDTO findByEmail(final String email) throws Exception {
+    public UserDTO findByEmail(final String email) throws UsernameNotFoundException {
         CollectionReference collection = firestore.collection(collection());
 
-        List<UserDTO> users = collection.whereEqualTo(EMAIL, email).get().get().toObjects(type());
+        List<UserDTO> users = null;
+        try {
+            users = collection.whereEqualTo(EMAIL, email).get().get().toObjects(type());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
 
-        if(users.isEmpty()) throw new NotFoundException("Kullanıcı bulunamadı", "Verilen bilgilere sahip kullanıcı sistemde bulunmamaktadır");
-        if(users.size() > 1) throw new ConflictException("Çakışma hatası", "Verilen bilgiler birden fazla kullanıcı ile eşleşmektedir");
+        if(users.isEmpty()) throw new UsernameNotFoundException("Verilen bilgilere sahip kullanıcı sistemde bulunmamaktadır");
+        if(users.size() > 1) throw new RuntimeException("Verilen bilgiler birden fazla kullanıcı ile eşleşmektedir");
 
         return users.get(0);
     }

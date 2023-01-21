@@ -2,6 +2,7 @@ package com.tdonuk.sepetim.service;
 
 import com.tdonuk.dto.domain.user.UserDTO;
 import com.tdonuk.sepetim.dao.UserDAO;
+import com.tdonuk.sepetim.security.domain.UserDetail;
 import com.tdonuk.sepetim.util.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,7 +32,7 @@ public class AuthenticationService {
     private AuthenticationManager authenticationManager;
 
     public UserDTO register(UserDTO dto) throws Exception {
-        dto.setPhone(passwordEncoder.encode(dto.getPassword()));
+        dto.setPassword(passwordEncoder.encode(dto.getPassword()));
         dto.setCreated(new Date());
         return userDAO.save(dto);
     }
@@ -42,9 +43,9 @@ public class AuthenticationService {
 
         Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
 
-        UserDTO user = userDAO.findByEmail(email);
+        UserDetail user = (UserDetail) auth.getPrincipal();
 
-        String jwt = JWTUtils.createDefault(user.getEmail(), Collections.singletonList("USER"));
+        String jwt = JWTUtils.createDefault(user.getUsername(), Collections.singletonList("USER"));
 
         Map<String, String> result = new HashMap<>();
         result.put(ACCESS_TOKEN, jwt);

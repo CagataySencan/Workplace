@@ -43,7 +43,7 @@ public class UserService extends BaseService<UserDTO> {
         );
     }
 
-    public UserDTO findByEmail(String email) throws Exception {
+    public UserDTO findByEmail(String email) {
         return userDAO.findByEmail(email);
     }
 }
