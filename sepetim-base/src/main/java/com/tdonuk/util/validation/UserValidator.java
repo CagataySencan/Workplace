@@ -14,7 +14,7 @@ public class UserValidator implements Validator {
         this.user = user;
     }
 
-    public UserValidator validate() {
+    public UserValidator validate() throws ValidationException {
         try {
             validateEmail(user.getEmail());
             validatePassword(user.getPassword());
@@ -22,6 +22,7 @@ public class UserValidator implements Validator {
             validateName(user.getName());
         } catch(ValidationException e) {
             this.isValid = false;
+            throw e;
         }
 
         return this;
