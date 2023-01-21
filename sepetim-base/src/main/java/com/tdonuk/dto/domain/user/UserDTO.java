@@ -18,7 +18,7 @@ public class UserDTO extends DomainDTO {
     private String password;
     private String phone;
     private Name name;
-    private Integer age;
+    private Date age;
     private List<String> interests;
     private List<VendorDTO> vendors;
     private Date lastLogin;

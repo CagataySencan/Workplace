@@ -4,13 +4,13 @@ import com.tdonuk.dto.domain.user.Name;
 import com.tdonuk.dto.domain.user.UserDTO;
 import com.tdonuk.exception.ValidationException;
 
-public class UserValidator {
+public class UserValidator implements Validator {
     private UserDTO user;
     public UserValidator(UserDTO user) {
         this.user = user;
     }
 
-    private Boolean isValid() throws ValidationException {
+    public boolean validate() throws ValidationException {
         validateEmail(user.getEmail());
         validatePassword(user.getPassword());
         validatePhone(user.getPhone());
