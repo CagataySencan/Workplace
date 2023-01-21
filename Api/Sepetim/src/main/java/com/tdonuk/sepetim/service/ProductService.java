@@ -30,4 +30,12 @@ public class ProductService extends BaseService<ProductDTO> {
     protected List<ProductDTO> concrete(List<BaseDTO> base) {
         return (List<ProductDTO>)(List<?>) base;
     }
+
+    @Override
+    protected List<String> invalidFieldsForUpdate() {
+        return List.of(
+                "id",
+                "created"
+        );
+    }
 }

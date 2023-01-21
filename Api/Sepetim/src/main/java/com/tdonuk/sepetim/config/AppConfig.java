@@ -1,28 +1,44 @@
 package com.tdonuk.sepetim.config;
 
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.tdonuk.util.io.IO;
+import com.tdonuk.sepetim.security.domain.UserDetailService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.Map;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
+@RequiredArgsConstructor
 public class AppConfig {
-    @PostConstruct
-    public void init() throws IOException {
-        Map<String, String> environment = System.getenv();
+    private final UserDetailService userDetailService;
 
-        String firebaseAuth = environment.get(Variables.FIREBASE_AUTH);
-        FirebaseOptions opts = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(new ByteArrayInputStream(IO.decodeToBytes(firebaseAuth))))
-                .setConnectTimeout(10000)
-                .build();
 
-        FirebaseApp.initializeApp(opts);
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return userDetailService;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService());
+        provider.setPasswordEncoder(passwordEncoder());
+
+        return provider;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
     }
 }

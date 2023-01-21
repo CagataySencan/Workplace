@@ -30,6 +30,14 @@ public class ActualService extends BaseService<CurrentActualDTO> {
         return (List<CurrentActualDTO>)(List<?>) base;
     }
 
+    @Override
+    protected List<String> invalidFieldsForUpdate() {
+        return List.of(
+                "id",
+                "created"
+        );
+    }
+
     public List<CurrentActualDTO> getHist() throws Exception {
         return actualDAO.getHist();
     }

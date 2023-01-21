@@ -12,11 +12,17 @@ import javax.annotation.PostConstruct;
 import javax.naming.OperationNotSupportedException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public abstract class BaseDAO<T extends BaseDTO> {
     abstract String collection();
     abstract Class<T> type();
+
+    /**
+     * this is used to prevent unwanted put request like updating the entity's id, creation date, etc..
+     */
+    abstract void restoreInvalidFields(T dataToUpdate, T oldData);
 
     protected Firestore firestore;
 
@@ -30,7 +36,6 @@ public abstract class BaseDAO<T extends BaseDTO> {
 
         DocumentReference created = table.document();
 
-        dto.setCreated(new Date());
         dto.setId(created.getId());
 
         WriteResult result = created.set(dto).get();
@@ -80,15 +85,31 @@ public abstract class BaseDAO<T extends BaseDTO> {
         throw new OperationNotSupportedException("This feature is not implemented yet");
     }
 
-    public T update(T dto) throws Exception {
+    public T update(String id, T dto) throws Exception {
         CollectionReference table = firestore.collection(collection());
 
-        DocumentReference toUpdate = table.document(dto.getId());
+        DocumentReference toUpdate = table.document(id);
+
+        T old = toUpdate.get().get().toObject(type());
+
+        restoreInvalidFields(dto, old);
 
         dto.setLastUpdated(new Date());
 
         WriteResult result = toUpdate.set(dto).get();
 
         return dto;
+    }
+
+    public T update(String id, Map<String, Object> fields) throws Exception {
+        CollectionReference table = firestore.collection(collection());
+
+        DocumentReference toUpdate = table.document(id);
+
+        fields.put("lastUpdated", new Date());
+
+        WriteResult result = toUpdate.update(fields).get();
+
+        return toUpdate.get().get().toObject(type());
     }
 }

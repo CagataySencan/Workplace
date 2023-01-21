@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/actuals")
+@RequestMapping("/api/v1/actuals")
 public class ActualController {
     @Autowired
     private ActualService service;
 
-    @GetMapping(path = {"", "/"})
+    @GetMapping(path = {"", "/", "/current"})
     public BaseResponse<?> current() {
         try {
             return BaseResponse.of(service.getCurrent(), HttpStatus.OK.value());

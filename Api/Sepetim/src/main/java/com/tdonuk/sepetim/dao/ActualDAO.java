@@ -22,6 +22,12 @@ public class ActualDAO extends BaseDAO<CurrentActualDTO> {
         return CurrentActualDTO.class;
     }
 
+    @Override
+    void restoreInvalidFields(CurrentActualDTO dataToUpdate, CurrentActualDTO oldData) {
+        dataToUpdate.setCreated(oldData.getCreated());
+        dataToUpdate.setId(oldData.getId());
+    }
+
     public List<CurrentActualDTO> getHist() throws Exception {
         CollectionReference collection = firestore.collection(collection());
 

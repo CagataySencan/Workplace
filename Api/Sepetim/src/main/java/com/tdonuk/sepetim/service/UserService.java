@@ -30,4 +30,20 @@ public class UserService extends BaseService<UserDTO> {
     protected List<UserDTO> concrete(List<BaseDTO> base) {
         return (List<UserDTO>)(List<?>) base;
     }
+
+    @Override
+    protected List<String> invalidFieldsForUpdate() {
+        return List.of(
+                "id",
+                "created",
+                "email",
+                "lastLogin",
+                "birthDate",
+                "phone"
+        );
+    }
+
+    public UserDTO findByEmail(String email) throws Exception {
+        return userDAO.findByEmail(email);
+    }
 }

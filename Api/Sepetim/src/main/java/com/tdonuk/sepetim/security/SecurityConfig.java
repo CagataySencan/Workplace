@@ -1,56 +1,51 @@
 package com.tdonuk.sepetim.security;
 
-import com.tdonuk.sepetim.security.domain.UserDetailService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tdonuk.sepetim.security.filter.AuthFilter;
+import com.tdonuk.sepetim.security.handler.AuthFailureHandler;
+import com.tdonuk.sepetim.security.handler.AuthSuccessHandler;
+import com.tdonuk.sepetim.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
+@Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
-    @Autowired
-    private UserDetailService userDetailService;
+    private final AuthSuccessHandler successHandler;
+
+    private final AuthFailureHandler failureHandler;
+
+    private final AuthFilter authFilter;
+
+    private final AuthenticationProvider authenticationProvider;
+
+    private final UserService userService;
 
 
     @Bean
     public SecurityFilterChain authenticated(HttpSecurity http) throws Exception {
-        http
+        return http
                 .csrf().disable()
-                .securityMatcher("/api/me", "/api/me/**")
-                .authorizeHttpRequests((req) ->
-                        req.anyRequest().authenticated()
-                )
-                .userDetailsService(userDetailService)
-                .httpBasic();
-
-        return http.build();
+                .authorizeHttpRequests((auth) -> auth
+                        .requestMatchers("/api/v1/auth/**", "/api/v1/actuals/**").permitAll()
+                        .requestMatchers("/api/v1/users/**").authenticated())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
+                .httpBasic(Customizer.withDefaults())
+                .build();
     }
 
-    @Bean
-    public SecurityFilterChain unauthenticated(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .securityMatcher("/api/actuals", "/api/actuals/**")
-                .authorizeHttpRequests((req) ->
-                        req.anyRequest().permitAll()
-                )
-                .httpBasic();
 
-        return http.build();
-    }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return userDetailService;
-    }
+
 }

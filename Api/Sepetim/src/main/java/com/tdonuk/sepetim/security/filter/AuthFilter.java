@@ -1,87 +1,61 @@
 package com.tdonuk.sepetim.security.filter;
 
-import com.auth0.jwt.algorithms.Algorithm;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tdonuk.constant.Time;
-import com.tdonuk.exception.BadRequestException;
-import com.tdonuk.sepetim.constant.ContextParams;
-import com.tdonuk.sepetim.security.Context;
+import com.tdonuk.constant.HttpHeaders;
 import com.tdonuk.sepetim.security.domain.UserDetail;
-import com.tdonuk.sepetim.security.handler.AuthFailureHandler;
-import com.tdonuk.sepetim.security.handler.AuthSuccessHandler;
-import com.tdonuk.sepetim.service.UserService;
+import com.tdonuk.sepetim.security.domain.UserDetailService;
 import com.tdonuk.sepetim.util.JWTUtils;
+import com.tdonuk.util.text.StringUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Component
-public class AuthFilter extends UsernamePasswordAuthenticationFilter {
-    @Autowired
-    private AuthSuccessHandler successHandler;
+@RequiredArgsConstructor
+public class AuthFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private AuthFailureHandler failureHandler;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private UserService userService;
-
-    @PostConstruct
-    public void init() {
-        setUsernameParameter("email");
-        setAuthenticationSuccessHandler(successHandler);
-        setAuthenticationFailureHandler(failureHandler);
-    }
+    private final UserDetailService userDetailService;
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        logger.info(String.format("authentication attempt from [%s]", request.getRemoteAddr()));
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-        if("POST".equalsIgnoreCase(request.getMethod())) {
-            String username, password;
-
-            String body = null;
-            JsonNode json = null;
-            try {
-                body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-                json = new ObjectMapper().readTree(body);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            if(Objects.isNull(json)) throw new RuntimeException("geçersiz istek: body null");
-
-            username = json.get("email").asText();
-            password = json.get("password").asText();
-
-            logger.info(String.format("authenticating [%s] as [%s]...", request.getRemoteAddr(), username));
-
-            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
-
-            return this.authenticationManager.authenticate(token);
+        if(Objects.isNull(authHeader) || !authHeader.startsWith(HttpHeaders.BEARER)) {
+            filterChain.doFilter(request, response);
+            return;
         }
-        return null;
+
+        final String email;
+        try {
+            email = JWTUtils.getUser(authHeader);
+        } catch (Exception e) {
+            response.getOutputStream().write(e.getMessage().getBytes(StandardCharsets.UTF_8));
+            filterChain.doFilter(request, response);
+            return;
+        }
+        if(StringUtils.isNotBlank(email) && Objects.isNull(SecurityContextHolder.getContext().getAuthentication())) {
+            UserDetail user = (UserDetail) userDetailService.loadUserByUsername(email);
+
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user,null, user.getAuthorities());
+            token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+            SecurityContextHolder.getContext().setAuthentication(token);
+
+            filterChain.doFilter(request, response);
+        }
     }
+
+    /*
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
@@ -118,4 +92,6 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         super.unsuccessfulAuthentication(request, response, failed);
     }
+
+    */
 }
