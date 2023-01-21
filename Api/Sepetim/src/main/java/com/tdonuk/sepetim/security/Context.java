@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
+import java.util.Objects;
+
 import static com.tdonuk.sepetim.constant.ContextParams.LOGGED_USER;
 import static com.tdonuk.sepetim.constant.ContextParams.LOGGED_USERNAME;
 
@@ -22,15 +24,13 @@ public final class Context {
     }
 
     public static String loggedEmail() throws Exception {
-        String loggedUser = (String) get(LOGGED_USERNAME);
-
-        if(StringUtils.isBlank(loggedUser)) throw new SystemException("Bilinmeyen bir hata oluştu", "Bilinmeyen bir hata oluştu: Daha sonra tekrar deneyiniz");
-
-        return loggedUser;
+        return loggedUser().getEmail();
     }
 
     public static UserDTO loggedUser() throws Exception {
         UserDTO loggedUser = (UserDTO) get(LOGGED_USER);
+
+        if(Objects.isNull(loggedUser)) throw new SystemException("Bilinmeyen bir hata oluştu", "Bilinmeyen bir hata oluştu: Daha sonra tekrar deneyiniz");
 
         return loggedUser;
     }

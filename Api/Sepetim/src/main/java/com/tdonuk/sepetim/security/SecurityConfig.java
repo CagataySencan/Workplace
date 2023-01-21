@@ -31,11 +31,11 @@ public class SecurityConfig {
 
 
     @Bean
-    public SecurityFilterChain authenticated(HttpSecurity http) throws Exception {
+    public SecurityFilterChain configureSecurity(HttpSecurity http) throws Exception {
         return http
                 .csrf().disable()
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/api/v1/auth/**", "/api/v1/actuals/**", "/api/v1/vendors/**").permitAll()
+                        .requestMatchers("/api/v1/auth/**", "/api/v1/vendors/**", "/error").permitAll()
                         .requestMatchers("/api/v1/users/**").authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
@@ -43,9 +43,5 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }
-
-
-
-
 
 }
