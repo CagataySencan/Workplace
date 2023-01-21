@@ -37,7 +37,7 @@ public class AuthenticationService {
         return userDAO.save(dto);
     }
 
-    public Map<String, String> authenticate(Map<String, String> credentials) throws Exception {
+    public String authenticate(Map<String, String> credentials) throws Exception {
         String email = credentials.get(EMAIL);
         String password = credentials.get(PASSWORD);
 
@@ -47,9 +47,6 @@ public class AuthenticationService {
 
         String jwt = JWTUtils.createDefault(user.getUsername(), Collections.singletonList("USER"));
 
-        Map<String, String> result = new HashMap<>();
-        result.put(ACCESS_TOKEN, jwt);
-
-        return result;
+        return jwt;
     }
 }

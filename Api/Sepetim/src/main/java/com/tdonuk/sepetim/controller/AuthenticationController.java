@@ -38,9 +38,9 @@ public class AuthenticationController {
     }
 
     @PostMapping(path = {"/login", "/authenticate"})
-    public BaseResponse<?> authenticate(@RequestBody Map<String, String> credentials) {
+    public Object authenticate(@RequestBody Map<String, String> credentials) {
         try {
-            return BaseResponse.of(authService.authenticate(credentials), HttpStatus.OK.value());
+            return authService.authenticate(credentials);
         } catch (Exception e) {
             return ErrorUtils.forbidden(e);
         }
