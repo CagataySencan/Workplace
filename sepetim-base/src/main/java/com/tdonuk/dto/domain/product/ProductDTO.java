@@ -10,12 +10,12 @@ import java.util.Date;
 
 @Data
 public class ProductDTO extends BaseDTO {
+    private Vendor vendor;
     private String brand;
     private String title;
     private String description;
     private String url;
     private String imageUrl;
-    private Vendor vendor;
     private Double oldPrice;
     private Double price;
     private Date discountEndDate;
