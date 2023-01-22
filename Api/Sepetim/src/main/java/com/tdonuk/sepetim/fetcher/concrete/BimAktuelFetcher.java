@@ -4,6 +4,7 @@ import com.tdonuk.constant.Vendor;
 import com.tdonuk.dto.domain.product.AktuelDTO;
 import com.tdonuk.sepetim.fetcher.AbstractAktuelFetcher;
 import com.tdonuk.sepetim.fetcher.DiscountFetcher;
+import com.tdonuk.sepetim.util.AktuelUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.jsoup.nodes.Document;
@@ -57,6 +58,8 @@ public final class BimAktuelFetcher extends AbstractAktuelFetcher {
             aktuel.setDate(date);
             aktuel.setBannerPageLinks(bannerLinks);
             aktuel.setVendor(Vendor.BIM);
+
+            AktuelUtils.generateId(aktuel);
 
             aktuels.add(aktuel);
         }

@@ -74,8 +74,6 @@ public abstract class BaseDAO<T extends BaseDTO> {
             dto.setCreated(new Date());
 
             batch.create(doc, dto);
-
-            if(i > 20) batch.commit();
         }
 
         List<WriteResult> writeResults = batch.commit().get();
@@ -108,8 +106,6 @@ public abstract class BaseDAO<T extends BaseDTO> {
             DocumentReference doc = collection.document(dto.getId());
 
             batch.delete(doc);
-
-            if(i > 20) batch.commit();
         }
 
         List<WriteResult> writeResults = batch.commit().get();

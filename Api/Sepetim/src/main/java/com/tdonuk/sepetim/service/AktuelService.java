@@ -2,7 +2,7 @@ package com.tdonuk.sepetim.service;
 
 import com.tdonuk.dto.BaseDTO;
 import com.tdonuk.dto.domain.product.AktuelDTO;
-import com.tdonuk.sepetim.dao.ActualDAO;
+import com.tdonuk.sepetim.dao.AktuelDAO;
 import com.tdonuk.sepetim.dao.BaseDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +12,11 @@ import java.util.List;
 @Service
 public class AktuelService extends BaseService<AktuelDTO> {
     @Autowired
-    private ActualDAO actualDAO;
+    private AktuelDAO aktuelDAO;
 
     @Override
     protected BaseDAO dao() {
-        return actualDAO;
+        return aktuelDAO;
     }
 
     @Override
@@ -39,7 +39,11 @@ public class AktuelService extends BaseService<AktuelDTO> {
     }
 
     public List<AktuelDTO> getHist() throws Exception {
-        return actualDAO.getHist();
+        return aktuelDAO.getHist();
+    }
+
+    public List<AktuelDTO> updateHist(List<AktuelDTO> hist) throws Exception {
+        return aktuelDAO.updateHist(hist);
     }
 
 }

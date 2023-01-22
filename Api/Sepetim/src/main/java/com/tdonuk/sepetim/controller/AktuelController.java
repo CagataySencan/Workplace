@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/actuals")
-public class ActualController {
+@RequestMapping("/api/v1/aktuel")
+public class AktuelController {
     @Autowired
     private AktuelService service;
 
