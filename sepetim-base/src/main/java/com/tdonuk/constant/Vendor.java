@@ -1,18 +1,18 @@
 package com.tdonuk.constant;
 
 public enum Vendor {
-    BIM(VendorType.CHAIN_STORE, "BİM", "https://bim.com.tr", "https://bim.com.tr/aktuel?dummy");
+    BIM(VendorType.CHAIN_STORE, "BİM", "https://www.bim.com.tr", "https://www.bim.com.tr/Categories/680/afisler.aspx");
 
     private VendorType type;
     private String title;
     private String rootPath;
-    private String actualPath;
+    private String discountsPath;
 
-    Vendor(VendorType type, String title, String rootPath, String actualPath) {
+    Vendor(VendorType type, String title, String rootPath, String discountsPath) {
         this.type = type;
         this.title = title;
         this.rootPath = rootPath;
-        this.actualPath = actualPath;
+        this.discountsPath = discountsPath;
     }
 
     public VendorType getType() {
@@ -27,8 +27,8 @@ public enum Vendor {
         return rootPath;
     }
 
-    public String getActualPath() {
-        return actualPath;
+    public String getDiscountsPath() {
+        return discountsPath;
     }
 
 }

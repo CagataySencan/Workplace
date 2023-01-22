@@ -10,12 +10,11 @@ import java.util.List;
 @Data
 public class AktuelDTO extends BaseDTO implements Comparable<AktuelDTO> {
     private Vendor vendor;
-    private Date beginDate;
-    private Date endDate;
-    private List<ProductDTO> products;
+    private Date date;
+    private List<String> bannerPageLinks;
 
     @Override
     public int compareTo(AktuelDTO o) {
-        return getCreated().compareTo(o.getCreated());
+        return getDate().compareTo(o.getDate());
     }
 }
