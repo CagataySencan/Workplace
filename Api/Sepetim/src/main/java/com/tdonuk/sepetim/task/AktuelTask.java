@@ -32,7 +32,7 @@ public class AktuelTask {
 
     // 0 */4 * * *
     @Scheduled(fixedRate = 6, timeUnit = TimeUnit.HOURS, initialDelay = 0)
-    public void fetchAktuels() throws Exception {
+    public void updateHist() throws Exception {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
