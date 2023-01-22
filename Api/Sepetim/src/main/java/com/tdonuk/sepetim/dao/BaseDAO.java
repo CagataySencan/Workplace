@@ -1,9 +1,7 @@
 package com.tdonuk.sepetim.dao;
 
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.tdonuk.dto.BaseDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -64,7 +62,25 @@ public abstract class BaseDAO<T extends BaseDTO> {
     }
 
     public List<T> save(List<T> dtos) throws Exception {
-        throw new OperationNotSupportedException("This feature is not implemented yet");
+        CollectionReference collection = firestore.collection(collection());
+
+        WriteBatch batch = firestore.batch();
+
+        int i = 0;
+        for(T dto : dtos) {
+            i++;
+            DocumentReference doc = collection.document();
+            dto.setId(doc.getId());
+            dto.setCreated(new Date());
+
+            batch.create(doc, dto);
+
+            if(i > 20) batch.commit();
+        }
+
+        List<WriteResult> writeResults = batch.commit().get();
+
+        return dtos;
     }
 
     public Boolean delete(T dto) throws Exception {
@@ -82,7 +98,23 @@ public abstract class BaseDAO<T extends BaseDTO> {
     }
 
     public Boolean delete(List<T> dtos) throws Exception {
-        throw new OperationNotSupportedException("This feature is not implemented yet");
+        CollectionReference collection = firestore.collection(collection());
+
+        WriteBatch batch = firestore.batch();
+
+        int i = 0;
+        for(T dto : dtos) {
+            i++;
+            DocumentReference doc = collection.document(dto.getId());
+
+            batch.delete(doc);
+
+            if(i > 20) batch.commit();
+        }
+
+        List<WriteResult> writeResults = batch.commit().get();
+
+        return true;
     }
 
     public T update(String id, T dto) throws Exception {

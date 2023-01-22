@@ -1,7 +1,7 @@
 package com.tdonuk.sepetim.controller;
 
 import com.tdonuk.dto.http.BaseResponse;
-import com.tdonuk.sepetim.service.ActualService;
+import com.tdonuk.sepetim.service.AktuelService;
 import com.tdonuk.sepetim.util.ErrorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,18 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/actuals")
 public class ActualController {
     @Autowired
-    private ActualService service;
+    private AktuelService service;
 
-    @GetMapping(path = {"", "/", "/current"})
-    public BaseResponse<?> current() {
-        try {
-            return BaseResponse.of(service.getCurrent(), HttpStatus.OK.value());
-        } catch (Exception e) {
-            return ErrorUtils.badRequest(e);
-        }
-    }
-
-    @GetMapping(path = {"/hist"})
+    @GetMapping(path = {"/hist", ""})
     public BaseResponse<?> hist() {
         try {
             return BaseResponse.of(service.getHist(), HttpStatus.OK.value());

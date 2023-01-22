@@ -1,7 +1,7 @@
 package com.tdonuk.sepetim.service;
 
 import com.tdonuk.dto.BaseDTO;
-import com.tdonuk.dto.domain.CurrentActualDTO;
+import com.tdonuk.dto.domain.product.AktuelDTO;
 import com.tdonuk.sepetim.dao.ActualDAO;
 import com.tdonuk.sepetim.dao.BaseDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ActualService extends BaseService<CurrentActualDTO> {
+public class AktuelService extends BaseService<AktuelDTO> {
     @Autowired
     private ActualDAO actualDAO;
 
@@ -20,14 +20,14 @@ public class ActualService extends BaseService<CurrentActualDTO> {
     }
 
     @Override
-    protected CurrentActualDTO concrete(BaseDTO base) {
-        if(base instanceof CurrentActualDTO) return (CurrentActualDTO) base;
+    protected AktuelDTO concrete(BaseDTO base) {
+        if(base instanceof AktuelDTO) return (AktuelDTO) base;
         else return null;
     }
 
     @Override
-    protected List<CurrentActualDTO> concrete(List<BaseDTO> base) {
-        return (List<CurrentActualDTO>)(List<?>) base;
+    protected List<AktuelDTO> concrete(List<BaseDTO> base) {
+        return (List<AktuelDTO>)(List<?>) base;
     }
 
     @Override
@@ -38,11 +38,8 @@ public class ActualService extends BaseService<CurrentActualDTO> {
         );
     }
 
-    public List<CurrentActualDTO> getHist() throws Exception {
+    public List<AktuelDTO> getHist() throws Exception {
         return actualDAO.getHist();
     }
 
-    public CurrentActualDTO getCurrent() throws Exception {
-        return actualDAO.getCurrent();
-    }
 }

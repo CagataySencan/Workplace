@@ -1,0 +1,8 @@
+package com.tdonuk.sepetim.fetcher;
+
+import java.io.IOException;
+import java.util.List;
+
+public interface DiscountFetcher {
+    List<?> fetchDiscounts() throws Exception;
+}
