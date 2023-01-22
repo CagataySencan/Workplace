@@ -2,6 +2,7 @@ package com.tdonuk.dto.domain.product;
 
 import com.tdonuk.constant.Vendor;
 import com.tdonuk.dto.BaseDTO;
+import com.tdonuk.util.text.StringUtils;
 import lombok.Data;
 
 import java.util.Date;
@@ -19,17 +20,12 @@ public class AktuelDTO extends BaseDTO implements Comparable<AktuelDTO> {
         return getDate().compareTo(o.getDate());
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        AktuelDTO aktuelDTO = (AktuelDTO) o;
-        return vendor == aktuelDTO.vendor && date.equals(aktuelDTO.date);
+
+    public boolean isEquals(AktuelDTO other) {
+        if(Objects.isNull(other)) return false;
+        if(StringUtils.isBlank(this.id) || StringUtils.isBlank(other.id)) return false;
+
+        return id.equals(other.getId());
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), vendor, date);
-    }
 }
