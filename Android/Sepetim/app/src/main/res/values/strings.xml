@@ -3,6 +3,7 @@
     <string name="app_name">Sepetim</string>
     <string name="main_app_name">Sepetim</string>
     <string name="main_app_name_uppercase">SEPETİM</string>
+
     <string name="e_mail_text">E-mail</string>
     <string name="password_text">Şifre</string>
     <string name="password_again_text">Şifre Onay</string>
@@ -11,4 +12,9 @@
     <string name="sign_in">Giriş Yap</string>
     <string name="sign_up_uppercase">KAYIT OL</string>
     <string name="sign_up">Kayıt Ol</string>
+
+    <string name="sign_up_email_alert">E-Mail alanı boş bırakılamaz.</string>
+    <string name="sign_up_password_alert">Şifre alanı boş bırakılamaz.</string>
+    <string name="sign_up_confirm_password_alert">Şifre onay alanı boş bırakılamaz.</string>
+    <string name="sign_up_password_match_alert">Şifreler eşleşmiyor.</string>
 </resources>
