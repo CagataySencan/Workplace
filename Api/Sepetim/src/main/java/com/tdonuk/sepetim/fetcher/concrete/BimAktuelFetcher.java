@@ -58,7 +58,6 @@ public final class BimAktuelFetcher extends AbstractAktuelFetcher {
             aktuel.setDate(date);
             aktuel.setBannerPageLinks(bannerLinks);
             aktuel.setVendor(Vendor.BIM);
-            aktuel.setCreated(new Date());
 
             AktuelUtils.generateId(aktuel);
 
