@@ -18,7 +18,7 @@ public final class AktuelUtils {
     public static String generateId(Vendor vendor, Date date) throws ValidationException {
         if(Objects.isNull(vendor) || Objects.isNull(date)) throw new ValidationException("Vendor or date is null", "Can not generate aktuel id: vendor or date is null");
 
-        return vendor.getTitle().toUpperCase(new Locale("en", "UK")) + "_" + formatter.format(date);
+        return vendor.name() + "_" + formatter.format(date);
     }
 
     public static void generateId(AktuelDTO aktuel) throws ValidationException {
