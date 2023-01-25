@@ -1,7 +1,8 @@
 package com.tdonuk.constant;
 
 public enum Vendor {
-    BIM(VendorType.CHAIN_STORE, "BİM", "https://www.bim.com.tr", "https://www.bim.com.tr/Categories/680/afisler.aspx");
+    BIM(VendorType.CHAIN_STORE, "BİM", "https://www.bim.com.tr", "https://www.bim.com.tr/Categories/680/afisler.aspx"),
+    A101(VendorType.CHAIN_STORE, "A101", "https://www.a101.com.tr", "https://www.a101.com.tr/aldin-aldin-bu-hafta-brosuru");
 
     private VendorType type;
     private String title;
