@@ -30,8 +30,8 @@ public class AktuelTask {
     private FetcherFactory fetcherFactory;
 
     // 0 */4 * * *
-    @Scheduled(fixedRate = 30, timeUnit = TimeUnit.SECONDS, initialDelay = 0)
-    public synchronized void updateHist() throws Exception {
+    @Scheduled(fixedRate = 2, timeUnit = TimeUnit.HOURS, initialDelay = 0)
+    public synchronized void updateAktuelHist() throws Exception {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
