@@ -6,7 +6,6 @@ import com.tdonuk.sepetim.util.UserAgentGenerator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.io.IOException;
 import java.util.List;
 
 public abstract class AbstractAktuelFetcher implements DiscountFetcher {

@@ -2,7 +2,6 @@ package com.tdonuk.sepetim.security;
 
 import com.tdonuk.dto.domain.user.UserDTO;
 import com.tdonuk.exception.SystemException;
-import com.tdonuk.util.text.StringUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.web.context.request.RequestAttributes;
@@ -11,7 +10,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import java.util.Objects;
 
 import static com.tdonuk.sepetim.constant.ContextParams.LOGGED_USER;
-import static com.tdonuk.sepetim.constant.ContextParams.LOGGED_USERNAME;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Context {

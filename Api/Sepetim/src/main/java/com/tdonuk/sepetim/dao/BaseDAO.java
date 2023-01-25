@@ -1,13 +1,11 @@
 package com.tdonuk.sepetim.dao;
 
-import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.tdonuk.dto.BaseDTO;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
-import javax.naming.OperationNotSupportedException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;

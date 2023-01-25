@@ -2,8 +2,6 @@ package com.tdonuk.sepetim.controller;
 
 import com.tdonuk.dto.domain.user.UserDTO;
 import com.tdonuk.dto.http.BaseResponse;
-import com.tdonuk.dto.http.Error;
-import com.tdonuk.exception.BaseException;
 import com.tdonuk.sepetim.service.AuthenticationService;
 import com.tdonuk.sepetim.util.ErrorUtils;
 import com.tdonuk.util.validation.UserValidator;

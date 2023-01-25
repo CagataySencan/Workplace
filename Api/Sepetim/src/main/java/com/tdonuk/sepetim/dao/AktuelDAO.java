@@ -3,14 +3,16 @@ package com.tdonuk.sepetim.dao;
 import com.google.cloud.firestore.*;
 import com.tdonuk.dto.domain.product.AktuelDTO;
 import com.tdonuk.exception.SystemException;
+import com.tdonuk.sepetim.cache.Cache;
+import com.tdonuk.sepetim.cache.CacheParams;
 import com.tdonuk.sepetim.constant.FirebaseCollections;
 import com.tdonuk.util.text.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -38,13 +40,19 @@ public class AktuelDAO extends BaseDAO<AktuelDTO> {
     public List<AktuelDTO> getHist() throws Exception {
         CollectionReference collection = firestore.collection(collection());
 
-        List<AktuelDTO> actuals = collection.orderBy("created", Query.Direction.DESCENDING).get().get().toObjects(type());
+        List<AktuelDTO> aktuels = Cache.getAktuelHist();
 
-        return actuals;
+        if(Objects.isNull(aktuels)) aktuels = collection.orderBy("created", Query.Direction.DESCENDING).get().get().toObjects(type());
+
+        Cache.systemCache.put(CacheParams.AKTUEL_HIST, aktuels);
+
+        return new ArrayList<>(aktuels);
     }
 
     public List<AktuelDTO> updateHist(List<AktuelDTO> hist) throws Exception {
         CollectionReference collection = firestore.collection(collection());
+
+        List<AktuelDTO> currentHist = getHist();
 
         WriteBatch batch = firestore.batch();
 
@@ -58,23 +66,29 @@ public class AktuelDAO extends BaseDAO<AktuelDTO> {
             hist.remove(aktuel);
         }
 
-        DocumentSnapshot snapshot;
         DocumentReference reference;
         for(AktuelDTO aktuel : hist) {
             if(StringUtils.isBlank(aktuel.getId())) throw new SystemException("ID is null", "Can not create aktuel: ID is null");
 
             reference = collection.document(aktuel.getId());
-            snapshot = reference.get().get();
 
-            if(snapshot.exists()) aktuel.setLastUpdated(new Date());
+            if(currentHist.contains(aktuel)) {
+                AktuelDTO current = currentHist.get(currentHist.indexOf(aktuel));
+
+                // restore uneditable fields to prevent unwanted update operations
+                aktuel.setCreated(current.getCreated());
+                aktuel.setVendor(current.getVendor());
+
+                aktuel.setLastUpdated(new Date());
+            }
             else aktuel.setCreated(new Date());
 
-            batch.set(reference, aktuel);
+            batch.set(reference, aktuel, SetOptions.merge());
         }
 
         List<WriteResult> writeResults = batch.commit().get();
 
-        return getHist();
+        return hist;
     }
 
 }

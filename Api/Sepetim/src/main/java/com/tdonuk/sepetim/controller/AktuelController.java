@@ -1,6 +1,7 @@
 package com.tdonuk.sepetim.controller;
 
 import com.tdonuk.dto.http.BaseResponse;
+import com.tdonuk.sepetim.cache.Cache;
 import com.tdonuk.sepetim.service.AktuelService;
 import com.tdonuk.sepetim.util.ErrorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class AktuelController {
     @GetMapping(path = {"/hist", ""})
     public BaseResponse<?> hist() {
         try {
-            return BaseResponse.of(service.getHist(), HttpStatus.OK.value());
+            return BaseResponse.of(Cache.getAktuelHist(), HttpStatus.OK.value());
         } catch (Exception e) {
             return ErrorUtils.badRequest(e);
         }
