@@ -11,7 +11,7 @@ public class Endpoints {
     public static final String REGISTER = AUTH_PATH+"/register";
     public static final String ME = AUTH_PATH+"/me";
 
-    public static final String AKTUELS = "aktuels";
-    public static final String AKTUELS_PATH = String.join("/", ROOT, VERSION, API, AKTUELS);
-    public static final String AKTUEL_HIST = AKTUELS_PATH+"/hist";
+    public static final String DISCOUNTS = "discounts";
+    public static final String DISCOUNTS_PATH = String.join("/", ROOT, VERSION, API, DISCOUNTS);
+    public static final String DISCOUNT_HIST = DISCOUNTS_PATH+"/hist";
 }

@@ -10,18 +10,20 @@ import java.util.List;
 import java.util.Objects;
 
 @Data
-public class AktuelDTO extends BaseDTO implements Comparable<AktuelDTO> {
+public class DiscountDTO extends BaseDTO implements Comparable<DiscountDTO> {
     private Vendor vendor;
-    private Date date;
+    private Date beginDate;
+    private Date endDate;
     private List<String> bannerPageLinks;
+    private List<ProductDTO> products;
 
     @Override
-    public int compareTo(AktuelDTO o) {
-        return getDate().compareTo(o.getDate());
+    public int compareTo(DiscountDTO o) {
+        return getBeginDate().compareTo(o.getBeginDate());
     }
 
 
-    public boolean isEquals(AktuelDTO other) {
+    public boolean isEquals(DiscountDTO other) {
         if(Objects.isNull(other)) return false;
         if(StringUtils.isBlank(this.id) || StringUtils.isBlank(other.id)) return false;
 

@@ -2,7 +2,7 @@ package com.tdonuk.dto.domain.vendor;
 
 import com.tdonuk.constant.VendorType;
 import com.tdonuk.dto.BaseDTO;
-import com.tdonuk.dto.domain.product.AktuelDTO;
+import com.tdonuk.dto.domain.product.DiscountDTO;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
@@ -17,5 +17,5 @@ public class VendorDTO extends BaseDTO {
     @NonNull
     private String url;
     private VendorType type;
-    private List<AktuelDTO> aktuelHist;
+    private List<DiscountDTO> discountHist;
 }
