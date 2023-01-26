@@ -1,7 +1,7 @@
 package com.tdonuk.sepetim.web.scraping;
 
 import com.tdonuk.constant.Vendor;
-import com.tdonuk.dto.domain.product.AktuelDTO;
+import com.tdonuk.dto.domain.product.DiscountDTO;
 import com.tdonuk.sepetim.util.UserAgentGenerator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -30,7 +30,7 @@ public class ScrapingTest {
 
         Elements posterAreaElements = document.select("div.posterArea div[class='row no-gutters'] div.genelgrup");
 
-        List<AktuelDTO> aktuels = new ArrayList<>();
+        List<DiscountDTO> discounts = new ArrayList<>();
 
         posterAreaElements.forEach(e -> {
             String dateTitle = e.selectFirst("a[class='subTabArea triangle'] span.text").ownText();
@@ -44,17 +44,17 @@ public class ScrapingTest {
                 throw new RuntimeException(ex);
             }
 
-            AktuelDTO aktuel = new AktuelDTO();
-            aktuel.setDate(date);
-            aktuel.setBannerPageLinks(bannerLinks);
-            aktuel.setVendor(Vendor.BIM);
+            DiscountDTO discount = new DiscountDTO();
+            discount.setBeginDate(date);
+            discount.setBannerPageLinks(bannerLinks);
+            discount.setVendor(Vendor.BIM);
 
-            aktuels.add(aktuel);
+            discounts.add(discount);
         });
 
-        Assertions.assertTrue(!aktuels.isEmpty());
+        Assertions.assertTrue(!discounts.isEmpty());
 
-        System.out.println(aktuels.toString());
+        System.out.println(discounts.toString());
 
     }
 }

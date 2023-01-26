@@ -1,31 +1,35 @@
 package com.tdonuk.sepetim.fetcher;
 
 import com.tdonuk.constant.Vendor;
-import com.tdonuk.exception.SystemException;
-import com.tdonuk.sepetim.fetcher.concrete.A101AktuelFetcher;
-import com.tdonuk.sepetim.fetcher.concrete.BimAktuelFetcher;
+import com.tdonuk.sepetim.fetcher.concrete.A101DiscountFetcher;
+import com.tdonuk.sepetim.fetcher.concrete.BimDiscountFetcher;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
 @Component
+@Slf4j
 public class FetcherFactory {
     @Autowired
-    private A101AktuelFetcher a101AktuelFetcher;
+    private A101DiscountFetcher a101DiscountFetcher;
 
     @Autowired
-    private BimAktuelFetcher bimAktuelFetcher;
+    private BimDiscountFetcher bimDiscountFetcher;
 
-    public AbstractAktuelFetcher getAktuelFetcherInstance(Vendor vendor) throws Exception {
+    public AbstractDiscountFetcher getDiscountFetcherInstance(Vendor vendor) throws Exception {
         switch (vendor) {
             case BIM -> {
-                return bimAktuelFetcher;
+                return bimDiscountFetcher;
             }
             case A101 -> {
-                return a101AktuelFetcher;
+                return a101DiscountFetcher;
             }
-            default -> throw new SystemException("Instance not supported", "Given vendor is not supported by any of the fetcher instances. vendor: " + (Objects.isNull(vendor) ? "null" : vendor.name()));
+            default -> {
+                log.error("can not find any instance for vendor: " + (Objects.isNull(vendor) ? "null" : vendor.getTitle()));
+                return null;
+            }
         }
     }
 }

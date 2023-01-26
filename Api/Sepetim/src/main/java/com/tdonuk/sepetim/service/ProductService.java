@@ -1,7 +1,7 @@
 package com.tdonuk.sepetim.service;
 
 import com.tdonuk.dto.BaseDTO;
-import com.tdonuk.dto.domain.product.AktuelDTO;
+import com.tdonuk.dto.domain.product.DiscountDTO;
 import com.tdonuk.dto.domain.product.ProductDTO;
 import com.tdonuk.sepetim.dao.BaseDAO;
 import com.tdonuk.sepetim.dao.ProductDAO;
@@ -22,7 +22,7 @@ public class ProductService extends BaseService<ProductDTO> {
 
     @Override
     protected ProductDTO concrete(BaseDTO base) {
-        if(base instanceof AktuelDTO) return (ProductDTO) base;
+        if(base instanceof DiscountDTO) return (ProductDTO) base;
         else return null;
     }
 

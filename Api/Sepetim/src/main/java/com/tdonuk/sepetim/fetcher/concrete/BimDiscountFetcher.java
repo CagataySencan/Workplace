@@ -1,10 +1,10 @@
 package com.tdonuk.sepetim.fetcher.concrete;
 
 import com.tdonuk.constant.Vendor;
-import com.tdonuk.dto.domain.product.AktuelDTO;
-import com.tdonuk.sepetim.fetcher.AbstractAktuelFetcher;
+import com.tdonuk.dto.domain.product.DiscountDTO;
+import com.tdonuk.sepetim.fetcher.AbstractDiscountFetcher;
 import com.tdonuk.sepetim.fetcher.DiscountFetcher;
-import com.tdonuk.sepetim.util.AktuelUtils;
+import com.tdonuk.sepetim.util.DiscountUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.jsoup.nodes.Document;
@@ -19,13 +19,13 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Component
-public final class BimAktuelFetcher extends AbstractAktuelFetcher {
+public final class BimDiscountFetcher extends AbstractDiscountFetcher {
     private static final SimpleDateFormat bimDateFormat = new SimpleDateFormat("dd MMMM EEE yyyy", new Locale("tr", "TR"));
 
     private static DiscountFetcher fetcher;
 
     public static DiscountFetcher instance() {
-        if(Objects.isNull(fetcher)) fetcher = new BimAktuelFetcher();
+        if(Objects.isNull(fetcher)) fetcher = new BimDiscountFetcher();
 
         return fetcher;
     }
@@ -36,14 +36,14 @@ public final class BimAktuelFetcher extends AbstractAktuelFetcher {
     }
 
     @Override
-    protected List<AktuelDTO> fetchAktuels(Document document) throws Exception {
+    protected List<DiscountDTO> fetch(Document document) throws Exception {
         Elements posterAreaElements = document.select("div.posterArea div[class='row no-gutters'] div.genelgrup");
 
-        List<AktuelDTO> aktuels = new ArrayList<>();
+        List<DiscountDTO> discounts = new ArrayList<>();
 
         Iterator<Element> iterator = posterAreaElements.iterator();
 
-        AktuelDTO aktuel;
+        DiscountDTO discount;
         while(iterator.hasNext()) {
             Element e = iterator.next();
 
@@ -52,17 +52,17 @@ public final class BimAktuelFetcher extends AbstractAktuelFetcher {
 
             Date date = bimDateFormat.parse(dateTitle + " " + LocalDate.now().getYear());
 
-            aktuel = new AktuelDTO();
+            discount = new DiscountDTO();
 
-            aktuel.setDate(date);
-            aktuel.setBannerPageLinks(bannerLinks);
-            aktuel.setVendor(Vendor.BIM);
+            discount.setBeginDate(date);
+            discount.setBannerPageLinks(bannerLinks);
+            discount.setVendor(Vendor.BIM);
 
-            AktuelUtils.generateId(aktuel);
+            DiscountUtils.generateId(discount);
 
-            aktuels.add(aktuel);
+            discounts.add(discount);
         }
 
-        return aktuels;
+        return discounts;
     }
 }

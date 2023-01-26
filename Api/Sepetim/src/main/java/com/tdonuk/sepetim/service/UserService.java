@@ -1,7 +1,7 @@
 package com.tdonuk.sepetim.service;
 
 import com.tdonuk.dto.BaseDTO;
-import com.tdonuk.dto.domain.product.AktuelDTO;
+import com.tdonuk.dto.domain.product.DiscountDTO;
 import com.tdonuk.dto.domain.user.UserDTO;
 import com.tdonuk.sepetim.dao.BaseDAO;
 import com.tdonuk.sepetim.dao.UserDAO;
@@ -22,7 +22,7 @@ public class UserService extends BaseService<UserDTO> {
 
     @Override
     protected UserDTO concrete(BaseDTO base) {
-        if(base instanceof AktuelDTO) return (UserDTO) base;
+        if(base instanceof DiscountDTO) return (UserDTO) base;
         else return null;
     }
 
