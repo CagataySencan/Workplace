@@ -24,9 +24,8 @@ public final class JWTUtils {
     public static final String EXAMPLE_KEY = "4226452948404D6351665468576D5A7134743777217A25432A462D4A614E6452";
 
     public static String getUser(String tokenHeader) throws Exception {
-        if(Objects.isNull(decodedJWT)) {
-            validate(tokenHeader);
-        }
+        DecodedJWT decodedJWT = validate(tokenHeader);
+
         return decodedJWT.getSubject();
     }
 
@@ -37,9 +36,9 @@ public final class JWTUtils {
         return decodedJWT.getClaim("authorities").asList(SimpleGrantedAuthority.class);
     }
 
-    public static void validate(String tokenHeader) throws Exception{
+    public static DecodedJWT validate(String tokenHeader) throws Exception{
         try {
-            decode(tokenHeader);
+            return decode(tokenHeader);
         } catch(TokenExpiredException e) {
             log.info("An error has occurred while authenticating the user: " + e.getMessage());
             throw new Exception("Maximum oturum süreniz dolmuştur. Lütfen yeniden giriş yapınız.");

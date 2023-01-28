@@ -2,8 +2,8 @@ package com.tdonuk.sepetim.service;
 
 import com.tdonuk.dto.BaseDTO;
 import com.tdonuk.dto.domain.product.DiscountDTO;
-import com.tdonuk.sepetim.dao.DiscountDAO;
 import com.tdonuk.sepetim.dao.BaseDAO;
+import com.tdonuk.sepetim.dao.DiscountDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
