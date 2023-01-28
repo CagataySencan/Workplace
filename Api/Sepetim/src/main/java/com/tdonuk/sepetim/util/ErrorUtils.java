@@ -3,7 +3,6 @@ package com.tdonuk.sepetim.util;
 import com.tdonuk.dto.http.BaseResponse;
 import com.tdonuk.dto.http.Error;
 import com.tdonuk.exception.BaseException;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 
 public class ErrorUtils {
@@ -16,18 +15,15 @@ public class ErrorUtils {
         return BaseResponse.fault(error, status.value());
     }
 
-    public static BaseResponse<?> badRequest(Exception e, HttpServletResponse r) {
-        r.setStatus(HttpStatus.BAD_REQUEST.value());
+    public static BaseResponse<?> badRequest(Exception e) {
         return createErrorResponse(e,HttpStatus.BAD_REQUEST);
     }
 
-    public static BaseResponse<?> forbidden(Exception e, HttpServletResponse r) {
-        r.setStatus(HttpStatus.FORBIDDEN.value());
+    public static BaseResponse<?> forbidden(Exception e) {
         return createErrorResponse(e,HttpStatus.FORBIDDEN);
     }
 
-    public static BaseResponse<?> unauthorized(Exception e, HttpServletResponse r) {
-        r.setStatus(HttpStatus.UNAUTHORIZED.value());
+    public static BaseResponse<?> unauthorized(Exception e) {
         return createErrorResponse(e,HttpStatus.UNAUTHORIZED);
     }
 

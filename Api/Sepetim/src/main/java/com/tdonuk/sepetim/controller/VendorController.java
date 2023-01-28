@@ -3,7 +3,7 @@ package com.tdonuk.sepetim.controller;
 import com.tdonuk.constant.Vendor;
 import com.tdonuk.dto.domain.vendor.VendorDTO;
 import com.tdonuk.dto.http.BaseResponse;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +16,7 @@ import java.util.List;
 public class VendorController {
 
     @GetMapping(path = {"/", "/supported"})
-    public BaseResponse<?> getSupportedVendors() {
+    public ResponseEntity<?> getSupportedVendors() {
         List<VendorDTO> result = new ArrayList<>();
 
         VendorDTO vendorDTO;
@@ -30,6 +30,6 @@ public class VendorController {
             result.add(vendorDTO);
         }
 
-        return BaseResponse.of(result, HttpStatus.OK.value());
+        return ResponseEntity.ok(BaseResponse.of(result));
     }
 }
