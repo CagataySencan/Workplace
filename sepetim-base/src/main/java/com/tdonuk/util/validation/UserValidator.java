@@ -16,9 +16,9 @@ public class UserValidator implements Validator {
 
     public UserValidator validate() throws ValidationException {
         try {
+            validatePhone(user.getPhone());
             validateEmail(user.getEmail());
             validatePassword(user.getPassword());
-            validatePhone(user.getPhone());
             validateName(user.getName());
         } catch(ValidationException e) {
             this.isValid = false;
@@ -26,6 +26,10 @@ public class UserValidator implements Validator {
         }
 
         return this;
+    }
+
+    private void validatePhone(final String phone) throws ValidationException {
+        if(!ValidationUtils.isPhoneValid(phone)) throw new ValidationException("Geçersiz telefon", "Telefon numarası '0xxx xxx xx xx' veya 'xxx xxx xx xx' formatında olmalıdır");
     }
 
     private void validateEmail(final String email) throws ValidationException {
@@ -38,10 +42,6 @@ public class UserValidator implements Validator {
 
     private void validateName(final Name name) throws ValidationException {
         if(!ValidationUtils.isNameValid(name)) if(!ValidationUtils.isNameValid(name)) throw new ValidationException("Geçersiz isim", "İsim ve soyisim 2-30 karakter aralığında olmalı ve yalnızca harf ve boşluk içermelidir");
-    }
-
-    private void validatePhone(final String phone) throws ValidationException {
-        if(!ValidationUtils.isPhoneValid(phone.replaceAll(" ", "")))throw new ValidationException("Geçersiz telefon", "Telefon numarası '0xxx xxx xx xx' veya 'xxx xxx xx xx' formatında olmalıdır");
     }
 
 }
