@@ -12,7 +12,7 @@ public class ErrorUtils {
         if(e instanceof BaseException customException) error = new Error(customException.getCode(), customException.getShortDesc(), customException.getLongDes());
         else error = new Error(-1, e.getMessage(), null);
 
-        return BaseResponse.of(error, status.value());
+        return BaseResponse.fault(error, status.value());
     }
 
     public static BaseResponse<?> badRequest(Exception e) {
