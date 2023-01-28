@@ -23,6 +23,7 @@ public final class ValidationUtils extends BaseUtils {
     }
 
     public static Boolean isNameValid(Name name) {
+        if(Objects.isNull(name)) return true; // not mandatory
         return name.getFirstname().matches(namePattern.pattern()) && name.getLastname().matches(namePattern.pattern());
     }
 
