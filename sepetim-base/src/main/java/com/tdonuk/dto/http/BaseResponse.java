@@ -17,11 +17,10 @@ public class BaseResponse<T>{
         this.data = data;
     }
 
-    public static <Data> BaseResponse of(Data data, int status) {
+    public static <Data> BaseResponse of(Data data) {
         BaseResponse<Data> response = new BaseResponse<>();
 
         response.setData(data);
-        response.setStatus(status);
 
         return response;
     }
