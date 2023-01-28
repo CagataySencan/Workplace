@@ -20,20 +20,12 @@ import java.util.Objects;
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class JWTUtils {
-    private static DecodedJWT decodedJWT;
     public static final String EXAMPLE_KEY = "4226452948404D6351665468576D5A7134743777217A25432A462D4A614E6452";
 
     public static String getUser(String tokenHeader) throws Exception {
         DecodedJWT decodedJWT = validate(tokenHeader);
 
         return decodedJWT.getSubject();
-    }
-
-    public static List<SimpleGrantedAuthority> getAuthorities(String tokenHeader) throws Exception {
-        if(Objects.isNull(decodedJWT)) {
-            validate(tokenHeader);
-        }
-        return decodedJWT.getClaim("authorities").asList(SimpleGrantedAuthority.class);
     }
 
     public static DecodedJWT validate(String tokenHeader) throws Exception{
@@ -55,9 +47,7 @@ public final class JWTUtils {
         Algorithm algorithm = Algorithm.HMAC256(EXAMPLE_KEY.getBytes());
         JWTVerifier verifier = JWT.require(algorithm).build();
 
-        decodedJWT = verifier.verify(token);
-
-        return decodedJWT;
+        return verifier.verify(token);
     }
 
     public static String create(String subject, long expiresAt, Algorithm alg, List<String> authorities) {
