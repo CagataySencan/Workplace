@@ -4,6 +4,7 @@ import com.tdonuk.dto.http.BaseResponse;
 import com.tdonuk.sepetim.cache.Cache;
 import com.tdonuk.sepetim.service.DiscountService;
 import com.tdonuk.sepetim.util.ErrorUtils;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +18,11 @@ public class DiscountController {
     private DiscountService service;
 
     @GetMapping(path = {"/hist", ""})
-    public BaseResponse<?> hist() {
+    public BaseResponse<?> hist(HttpServletResponse servletResponse) {
         try {
             return BaseResponse.of(Cache.getDiscountHist(), HttpStatus.OK.value());
         } catch (Exception e) {
-            return ErrorUtils.badRequest(e);
+            return ErrorUtils.badRequest(e, servletResponse);
         }
     }
 }

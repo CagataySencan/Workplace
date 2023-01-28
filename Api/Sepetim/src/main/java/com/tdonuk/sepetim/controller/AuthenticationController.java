@@ -6,6 +6,7 @@ import com.tdonuk.sepetim.service.AuthenticationService;
 import com.tdonuk.sepetim.util.ErrorUtils;
 import com.tdonuk.util.validation.UserValidator;
 import com.tdonuk.util.validation.Validator;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,7 @@ public class AuthenticationController {
     private AuthenticationService authService;
 
     @PostMapping(path = {"","/register", "/signup"})
-    public BaseResponse<?> register(@RequestBody UserDTO user) {
+    public BaseResponse<?> register(@RequestBody UserDTO user, HttpServletResponse servletResponse) {
         try {
             Validator validator = new UserValidator(user).validate();
 
@@ -31,16 +32,16 @@ public class AuthenticationController {
 
             return BaseResponse.of(user, HttpStatus.OK.value());
         } catch (Exception e) {
-            return ErrorUtils.badRequest(e);
+            return ErrorUtils.badRequest(e, servletResponse);
         }
     }
 
     @PostMapping(path = {"/login", "/authenticate"})
-    public Object authenticate(@RequestBody Map<String, String> credentials) {
+    public Object authenticate(@RequestBody Map<String, String> credentials, HttpServletResponse servletResponse) {
         try {
             return authService.authenticate(credentials);
         } catch (Exception e) {
-            return ErrorUtils.forbidden(e);
+            return ErrorUtils.forbidden(e, servletResponse);
         }
     }
 }
