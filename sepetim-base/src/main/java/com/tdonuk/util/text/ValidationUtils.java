@@ -5,6 +5,8 @@ import com.tdonuk.util.BaseUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ValidationUtils extends BaseUtils {
     public static Boolean isEmailValid(String s) {
@@ -12,7 +14,8 @@ public final class ValidationUtils extends BaseUtils {
     }
 
     public static Boolean isPhoneValid(String s) {
-        return s.matches(phonePattern.pattern());
+        if(Objects.isNull(s)) return true; // not mandatory
+        return s.replaceAll(" ", "").matches(phonePattern.pattern());
     }
 
     public static Boolean isPasswordValid(String s) {
