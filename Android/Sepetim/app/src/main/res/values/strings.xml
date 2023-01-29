@@ -17,4 +17,6 @@
     <string name="sign_up_password_alert">Şifre alanı boş bırakılamaz.</string>
     <string name="sign_up_confirm_password_alert">Şifre onay alanı boş bırakılamaz.</string>
     <string name="sign_up_password_match_alert">Şifreler eşleşmiyor.</string>
+
+    <string name="tamam">Tamam</string>
 </resources>

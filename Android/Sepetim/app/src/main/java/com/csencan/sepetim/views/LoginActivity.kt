@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.csencan.sepetim.R
 import com.csencan.sepetim.viewmodels.LoginActivityVM
+import com.tdonuk.util.text.StringUtils
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var loginButton : AppCompatButton
@@ -25,7 +26,6 @@ class LoginActivity : AppCompatActivity() {
 
         loginButton = findViewById(R.id.login_button)
         signUpButton = findViewById(R.id.login_sign_up_button)
-
 
 
         signUpButton.setOnClickListener {

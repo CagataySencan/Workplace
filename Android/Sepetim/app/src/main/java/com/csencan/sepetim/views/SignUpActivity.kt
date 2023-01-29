@@ -8,7 +8,10 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.ViewModelProvider
 import com.csencan.sepetim.R
+import com.csencan.sepetim.models.base.User
+import com.csencan.sepetim.utils.Util
 import com.csencan.sepetim.viewmodels.SignUpActivityVM
+import com.google.gson.Gson
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var signUpVM : SignUpActivityVM
@@ -25,6 +28,7 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
         initFields()
         initOnclickListeners()
+        observeLiveData()
     }
 
     private fun initFields() {
@@ -58,6 +62,23 @@ class SignUpActivity : AppCompatActivity() {
             signUpVM.signUp(emailEditText.text.toString(), passwordEditText.text.toString(), confirmPasswordEditText.text.toString())
         }
 
+    }
+
+    private fun observeLiveData() {
+        signUpVM.registerResponse.observe(this) {
+            val dataToJson = Gson().toJson(it.data)
+            val user = Gson().fromJson(dataToJson,User::class.java)
+            val fault = it.fault
+            val status = it.status
+            if (fault != null) {
+                val alertDialog = Util.createAlertDialogWithoutAction(
+                    this@SignUpActivity,
+                    fault.shortDes,
+                    fault.longDes
+                )
+                alertDialog.show()
+            }
+        }
     }
 
     private fun handleAlertTextViews() {
