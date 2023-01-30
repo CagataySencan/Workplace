@@ -20,6 +20,5 @@ public class ProductDTO extends BaseDTO {
     private Double price;
     private Date discountEndDate;
     private Boolean inDiscount;
-    private Boolean inActual;
     private Boolean isImageOnly;
 }
