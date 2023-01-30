@@ -17,7 +17,7 @@ public class DiscountController {
     private DiscountService service;
 
     @GetMapping(path = {"/hist", ""})
-    public ResponseEntity<?> hist(HttpServletResponse servletResponse) {
-        return ResponseEntity.ok(BaseResponse.of(Cache.getDiscountHist()));
+    public ResponseEntity<?> hist(HttpServletResponse servletResponse) throws Exception {
+        return ResponseEntity.ok(BaseResponse.of(service.getHist()));
     }
 }
