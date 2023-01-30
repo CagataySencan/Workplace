@@ -32,8 +32,8 @@ public class DiscountTask {
     private FetcherFactory fetcherFactory;
 
     // 0 */4 * * *
-    @Scheduled(fixedRate = 2, timeUnit = TimeUnit.HOURS, initialDelay = 1)
-    public synchronized void updateDiscountHist() throws Exception {
+    @Scheduled(cron = "0 * * * * ?")
+    public void updateDiscountHist() throws Exception {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 

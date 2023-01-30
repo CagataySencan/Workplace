@@ -33,6 +33,6 @@ public class AuthenticationController {
 
     @PostMapping(path = {"/login", "/authenticate"})
     public Object authenticate(@RequestBody Map<String, String> credentials) throws Exception {
-        return ResponseEntity.ok(authService.authenticate(credentials));
+        return ResponseEntity.ok(BaseResponse.of(authService.authenticate(credentials)));
     }
 }
