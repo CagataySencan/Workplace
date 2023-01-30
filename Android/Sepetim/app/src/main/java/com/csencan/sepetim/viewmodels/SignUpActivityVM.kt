@@ -26,20 +26,23 @@ class SignUpActivityVM() : ViewModel() {
         val newUser = RegisterRequestModel(email,password)
 
         viewModelScope.launch {
-            val response = RestApiServices.addUser(newUser)
-
-            if(response.isSuccessful) {
-                val successfulResponse = response.body()
-                if(successfulResponse != null) {
-                    registerResponse.value = successfulResponse
+            try {
+                val response = RestApiServices.addUser(newUser)
+                if(response.isSuccessful) {
+                    val successfulResponse = response.body()
+                    if(successfulResponse != null) {
+                        registerResponse.value = successfulResponse
+                    }
+                } else {
+                    val unsuccessfulResponse = Gson().fromJson(response.errorBody()?.charStream()?.readText(),BaseResponse::class.java)
+                    if(unsuccessfulResponse != null) {
+                        registerResponse.value = unsuccessfulResponse
+                    }
                 }
-            } else {
-                val unsuccessfulResponse = Gson().fromJson(response.errorBody()?.charStream()?.readText(),BaseResponse::class.java)
-
-                if(unsuccessfulResponse != null) {
-                    registerResponse.value = unsuccessfulResponse
-                }
+            } catch (exception : Exception) {
+                println(exception.message) //TODO Crashlytics
             }
+
         }
     }
 }

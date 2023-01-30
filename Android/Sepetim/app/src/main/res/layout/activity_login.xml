@@ -49,6 +49,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
+        <TextView
+            android:id="@+id/login_email_alert_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/main_name_color"
+            android:visibility="gone"
+            android:textSize="12sp" />
+
         <EditText
             android:id="@+id/login_email_et"
             android:layout_width="match_parent"
@@ -61,6 +70,14 @@
             android:textColor="@color/black"
             android:textColorHint="@color/hint_text_color"
             android:textSize="14sp" />
+        <TextView
+            android:id="@+id/login_password_alert_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/main_name_color"
+            android:visibility="gone"
+            android:textSize="12sp" />
 
         <EditText
             android:id="@+id/login_password_et"

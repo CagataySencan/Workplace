@@ -8,7 +8,9 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.ViewModelProvider
 import com.csencan.sepetim.R
+import com.csencan.sepetim.models.base.BaseResponse
 import com.csencan.sepetim.models.base.User
+import com.csencan.sepetim.models.register.RegisterResponseModel
 import com.csencan.sepetim.utils.Util
 import com.csencan.sepetim.viewmodels.SignUpActivityVM
 import com.google.gson.Gson
@@ -22,6 +24,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var passwordAlertTextView : TextView
     private lateinit var confirmPasswordAlertTextView : TextView
     private lateinit var signUpButton : AppCompatButton
+    private var registerResponseModel : RegisterResponseModel = RegisterResponseModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,23 +67,6 @@ class SignUpActivity : AppCompatActivity() {
 
     }
 
-    private fun observeLiveData() {
-        signUpVM.registerResponse.observe(this) {
-            val dataToJson = Gson().toJson(it.data)
-            val user = Gson().fromJson(dataToJson,User::class.java)
-            val fault = it.fault
-            val status = it.status
-            if (fault != null) {
-                val alertDialog = Util.createAlertDialogWithoutAction(
-                    this@SignUpActivity,
-                    fault.shortDes,
-                    fault.longDes
-                )
-                alertDialog.show()
-            }
-        }
-    }
-
     private fun handleAlertTextViews() {
         setAlertTextViews(null,null)
 
@@ -113,5 +99,34 @@ class SignUpActivity : AppCompatActivity() {
 
         textView?.visibility = View.VISIBLE
         textView?.text = " " + getString(alert!!)
+    }
+    private fun observeLiveData() {
+        signUpVM.registerResponse.observe(this) {response ->
+            setResponseModel(response,registerResponseModel)
+            if (registerResponseModel.fault != null) {
+                val alertDialog = Util.createUnsuccessfullResponseDialog(
+                    this@SignUpActivity,
+                    registerResponseModel.fault?.shortDes,
+                    registerResponseModel.fault?.longDes
+                )
+                alertDialog.show()
+            }
+
+            else if(registerResponseModel.user != null) {
+                // TODO User boş gelmezse auto login yapılacak
+            }
+
+        }
+    }
+
+    private fun setResponseModel(response : BaseResponse<*>, registerResponseModel: RegisterResponseModel) {
+        val dataToJson = Gson().toJson(response.data)
+        val user = Gson().fromJson(dataToJson,User::class.java)
+        val fault = response.fault
+        val status = response.status
+
+        registerResponseModel.user = user
+        registerResponseModel.fault = fault
+        registerResponseModel.status = status
     }
 }

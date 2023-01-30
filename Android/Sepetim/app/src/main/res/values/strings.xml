@@ -13,10 +13,12 @@
     <string name="sign_up_uppercase">KAYIT OL</string>
     <string name="sign_up">Kayıt Ol</string>
 
-    <string name="sign_up_email_alert">E-Mail alanı boş bırakılamaz.</string>
-    <string name="sign_up_password_alert">Şifre alanı boş bırakılamaz.</string>
-    <string name="sign_up_confirm_password_alert">Şifre onay alanı boş bırakılamaz.</string>
-    <string name="sign_up_password_match_alert">Şifreler eşleşmiyor.</string>
+    <string name="sign_up_email_alert">E-Mail alanı boş bırakılamaz</string>
+    <string name="sign_up_password_alert">Şifre alanı boş bırakılamaz</string>
+    <string name="sign_up_confirm_password_alert">Şifre onay alanı boş bırakılamaz</string>
+    <string name="sign_up_password_match_alert">Şifreler eşleşmiyor</string>
 
     <string name="tamam">Tamam</string>
+    <string name="warning">Uyarı</string>
+    <string name="unknown_error">Bilinmeyen bir hata ile karşılaşıldı. İlgili birimler bilgilendirildi</string>
 </resources>

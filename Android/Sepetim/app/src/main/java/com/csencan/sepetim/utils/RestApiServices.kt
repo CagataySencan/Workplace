@@ -15,7 +15,10 @@ object RestApiServices {
 
     suspend fun addUser(userData: RegisterRequestModel) : Response<BaseResponse<*>> {
         return retrofitClient.addUser(userData)
+    }
 
+    suspend fun loginUser(userData: RegisterRequestModel) : Response<BaseResponse<*>> {
+        return retrofitClient.loginUser(userData)
     }
 
 }
