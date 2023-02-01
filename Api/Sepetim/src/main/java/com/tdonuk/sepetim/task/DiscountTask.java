@@ -32,7 +32,7 @@ public class DiscountTask {
     private FetcherFactory fetcherFactory;
 
     // 0 */4 * * *
-    @Scheduled(cron = "0 * * * * ?")
+    @Scheduled(fixedRate = 2, initialDelay = 0, timeUnit = TimeUnit.HOURS)
     public void updateDiscountHist() throws Exception {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
