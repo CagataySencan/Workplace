@@ -18,7 +18,7 @@
     <string name="sign_up_confirm_password_alert">Şifre onay alanı boş bırakılamaz</string>
     <string name="sign_up_password_match_alert">Şifreler eşleşmiyor</string>
 
-    <string name="tamam">Tamam</string>
+    <string name="ok">Tamam</string>
     <string name="warning">Uyarı</string>
     <string name="unknown_error">Bilinmeyen bir hata ile karşılaşıldı. İlgili birimler bilgilendirildi</string>
 </resources>

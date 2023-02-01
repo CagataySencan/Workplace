@@ -2,6 +2,8 @@ package com.csencan.sepetim.utils
 
 import android.app.AlertDialog
 import android.content.Context
+import android.view.View
+import android.widget.TextView
 import com.csencan.sepetim.R
 import com.csencan.sepetim.models.base.BaseResponse
 import com.csencan.sepetim.models.base.User
@@ -24,9 +26,10 @@ object Util {
             builder.setMessage(R.string.unknown_error)
         }
 
-        builder.setPositiveButton(R.string.tamam) { dialog, which ->
+        builder.setPositiveButton(R.string.ok) { dialog, which ->
             dialog.dismiss()
         }
         return builder.create()
     }
+    // TODO setAlertTextViews için genel bir fonksiyon yazmayı dene
 }
