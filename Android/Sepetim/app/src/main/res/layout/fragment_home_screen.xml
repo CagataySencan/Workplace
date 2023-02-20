@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.HomeScreenFragment">
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/righteous"
+            android:text="@string/main_app_name_uppercase"
+            android:textAlignment="center"
+            android:textColor="@color/main_background_blue"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/search_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/rounded_search_edittext"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="4dp"
+            android:ems="10"
+            android:hint="@string/search_hint"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/hint_text_color"
+            android:textSize="@dimen/hint_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:text="@string/actual_catalog"
+            android:textColor="@color/title_black"
+            android:textSize="@dimen/hint_size"
+            android:layout_marginStart="15dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/actual_catalog_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"/>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/ending_soon"
+            android:textColor="@color/title_black"
+            android:layout_marginStart="15dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ending_soon_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"/>
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/discount"
+            android:textColor="@color/title_black"
+            android:layout_marginStart="15dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/discount_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

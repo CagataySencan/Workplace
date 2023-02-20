@@ -69,7 +69,7 @@
             android:inputType="textPersonName"
             android:textColor="@color/black"
             android:textColorHint="@color/hint_text_color"
-            android:textSize="14sp" />
+            android:textSize="@dimen/hint_size" />
         <TextView
             android:id="@+id/login_password_alert_tv"
             android:layout_width="match_parent"
@@ -89,8 +89,7 @@
             android:ems="10"
             android:hint="@string/password_text"
             android:inputType="textWebPassword"
-
-            android:textSize="14sp" />
+            android:textSize="@dimen/hint_size" />
 
 
     </LinearLayout>

@@ -8,11 +8,11 @@
     <string name="password_text">Şifre</string>
     <string name="password_again_text">Şifre Onay</string>
     <string name="forgot_password">Şifremi Unuttum</string>
+
     <string name="sign_in_uppercase">GİRİŞ YAP</string>
     <string name="sign_in">Giriş Yap</string>
     <string name="sign_up_uppercase">KAYIT OL</string>
     <string name="sign_up">Kayıt Ol</string>
-
     <string name="sign_up_email_alert">E-Mail alanı boş bırakılamaz</string>
     <string name="sign_up_password_alert">Şifre alanı boş bırakılamaz</string>
     <string name="sign_up_confirm_password_alert">Şifre onay alanı boş bırakılamaz</string>
@@ -21,4 +21,15 @@
     <string name="ok">Tamam</string>
     <string name="warning">Uyarı</string>
     <string name="unknown_error">Bilinmeyen bir hata ile karşılaşıldı. İlgili birimler bilgilendirildi</string>
+
+    <string name="search_hint">Ürün, marka veya kategori ara</string>
+    <string name="home_menu">Anasayfa</string>
+    <string name="favorite_menu">Favorilerim</string>
+    <string name="account_menu">Hesabım</string>
+
+    <string name="actual_catalog">Aktüel Kataloglar</string>
+    <string name="ending_soon">İndirimin Bitmesine Az Kalanlar</string>
+    <string name="discount">İndirimler</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

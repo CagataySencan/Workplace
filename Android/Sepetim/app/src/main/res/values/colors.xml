@@ -16,6 +16,9 @@
 
 	<color name="main_background_blue">#2192FF</color>
 	<color name="main_name_color">#F7F5EB</color>
+	<color name="light_gray">#EEEEEE</color>
+	<color name="bottom_menu_gray">#BDBCC2</color>
+	<color name="title_black">#333333</color>
 	<color name="hint_text_color">#747679</color>
 	<color name="transparent">#0000ffff</color>
 </resources>

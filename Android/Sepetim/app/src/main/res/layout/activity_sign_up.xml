@@ -69,7 +69,7 @@
             android:inputType="textPersonName"
             android:textColor="@color/black"
             android:textColorHint="@color/hint_text_color"
-            android:textSize="14sp" />
+            android:textSize="@dimen/hint_size" />
 
         <TextView
             android:id="@+id/signup_password_alert_tv"
@@ -91,7 +91,7 @@
             android:inputType="textWebPassword"
             android:textColor="@color/black"
             android:textColorHint="@color/hint_text_color"
-            android:textSize="14sp" />
+            android:textSize="@dimen/hint_size" />
 
         <TextView
             android:id="@+id/signup_password_again_alert_tv"
@@ -113,7 +113,7 @@
             android:inputType="textWebPassword"
             android:textColor="@color/black"
             android:textColorHint="@color/hint_text_color"
-            android:textSize="14sp" />
+            android:textSize="@dimen/hint_size" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/sign_up_button"
